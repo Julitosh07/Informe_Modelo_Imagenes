@@ -1,0 +1,544 @@
+/* ============================================================
+   PALETA DE COLORES: VINOTINTO Y BEIGE (SEGÚN BOCETO)
+   ============================================================ */
+:root {
+    --bg-page: #FAF5EF;           /* Beige suave de fondo */
+    --bg-card: #FFFFFF;           /* Fondo de tarjetas */
+    --bg-surface: #F5EFE6;        /* Beige intermedio para cajas */
+    --bg-surface-subtle: #FAF6F0; /* Beige muy claro para áreas interactivas */
+    
+    --vinotinto-main: #73152C;    /* Vinotinto principal */
+    --vinotinto-hover: #580E20;   /* Vinotinto oscuro para hover */
+    --vinotinto-soft: rgba(115, 21, 44, 0.08); /* Fondo transparente vinotinto */
+    --vinotinto-border: rgba(115, 21, 44, 0.25);
+    
+    --border-beige: #EADFD3;      /* Borde beige suave */
+    --border-dashed: #D3C3B2;     /* Borde punteado para dropzone */
+    
+    --text-primary: #2C2123;      /* Texto principal oscuro elegante */
+    --text-secondary: #706265;    /* Texto secundario */
+    --text-muted: #9E8F91;        /* Texto atenuado */
+    
+    --shadow-card: 0 8px 30px rgba(115, 21, 44, 0.05);
+    --shadow-elevated: 0 14px 40px rgba(115, 21, 44, 0.10);
+    
+    --radius-card: 22px;
+    --radius-pill: 999px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--bg-page);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 2.5rem 1.25rem 3.5rem;
+    position: relative;
+    overflow-x: hidden;
+}
+
+
+
+.app-wrapper {
+    position: relative;
+    z-index: 1;
+    max-width: 980px;
+    margin: 0 auto;
+}
+
+/* Encabezado Principal */
+.header-hero {
+    margin-bottom: 2rem;
+}
+
+.header-hero h1 {
+    font-size: clamp(2rem, 4vw, 2.7rem);
+    font-weight: 800;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    margin-bottom: 0.45rem;
+}
+
+.header-hero h1 .highlight {
+    color: var(--vinotinto-main);
+}
+
+.header-hero p {
+    font-size: 1.05rem;
+    color: var(--text-secondary);
+    font-weight: 500;
+    margin-bottom: 0.9rem;
+}
+
+.title-line {
+    width: 70px;
+    height: 4px;
+    background-color: var(--vinotinto-main);
+    border-radius: 2px;
+}
+
+/* Grilla Principal en 2 Columnas */
+.main-grid {
+    display: grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap: 1.75rem;
+    align-items: start;
+}
+
+@media (max-width: 820px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Tarjetas con estilo Beige / Vinotinto */
+.boceto-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-beige);
+    border-radius: var(--radius-card);
+    padding: 1.75rem;
+    box-shadow: var(--shadow-card);
+    position: relative;
+}
+
+.card-title-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 1.35rem;
+}
+
+.badge-num {
+    width: 28px;
+    height: 28px;
+    background-color: var(--vinotinto-main);
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 0.88rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 8px rgba(115, 21, 44, 0.25);
+    flex-shrink: 0;
+}
+
+.card-title-row h2 {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Zona de Carga (Dropzone punteada como el boceto) */
+.dropzone-box {
+    position: relative;
+    background-color: var(--bg-surface-subtle);
+    border: 2px dashed var(--border-dashed);
+    border-radius: 18px;
+    padding: 2.25rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    min-height: 230px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.dropzone-box:hover,
+.dropzone-box.dragover {
+    border-color: var(--vinotinto-main);
+    background-color: #FFFDF9;
+    box-shadow: 0 4px 18px rgba(115, 21, 44, 0.08);
+}
+
+#inputImagen {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+    z-index: 3;
+}
+
+.upload-idle-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    pointer-events: none;
+}
+
+.image-icon-placeholder {
+    color: var(--vinotinto-main);
+    opacity: 0.85;
+    margin-bottom: 0.25rem;
+    transition: transform 0.25s ease;
+}
+
+.dropzone-box:hover .image-icon-placeholder {
+    transform: translateY(-3px) scale(1.04);
+}
+
+.drop-title {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.drop-separator {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+/* Botón "Seleccionar Archivo" (Píldora contorneada en vinotinto) */
+.btn-select-file {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--bg-surface);
+    border: 1.5px solid var(--vinotinto-main);
+    color: var(--vinotinto-main);
+    padding: 0.6rem 1.35rem;
+    border-radius: var(--radius-pill);
+    font-size: 0.92rem;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 6px rgba(115, 21, 44, 0.05);
+}
+
+.dropzone-box:hover .btn-select-file {
+    background-color: var(--vinotinto-main);
+    color: #FFFFFF;
+}
+
+/* Previsualización de la Imagen Seleccionada */
+.preview-container {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.85rem;
+    z-index: 4;
+}
+
+.preview-img-frame {
+    width: 150px;
+    height: 150px;
+    border-radius: 16px;
+    background-color: #FFFFFF;
+    border: 2px solid var(--border-beige);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 8px;
+}
+
+#previewImg {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+}
+
+.btn-change-file {
+    background: transparent;
+    border: none;
+    color: var(--vinotinto-main);
+    font-size: 0.82rem;
+    font-weight: 700;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 0.25rem 0.5rem;
+}
+
+.btn-change-file:hover {
+    color: var(--vinotinto-hover);
+}
+
+/* Botón Principal "Analizar Imagen" */
+.btn-analizar {
+    width: 100%;
+    margin-top: 1.25rem;
+    padding: 0.95rem 1.5rem;
+    border: none;
+    border-radius: var(--radius-pill);
+    background-color: var(--vinotinto-main);
+    color: #FFFFFF;
+    font-family: inherit;
+    font-size: 1.02rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    box-shadow: 0 6px 20px rgba(115, 21, 44, 0.28);
+    transition: all 0.25s ease;
+}
+
+.btn-analizar:hover:not(:disabled) {
+    background-color: var(--vinotinto-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(115, 21, 44, 0.38);
+}
+
+.btn-analizar:disabled {
+    opacity: 0.65;
+    cursor: wait;
+}
+
+/* Columna Derecha: Resultado */
+.right-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Panel de Resultados (Estructura exacta del boceto) */
+.resultado-box {
+    background-color: var(--bg-surface-subtle);
+    border: 1px solid var(--border-beige);
+    border-radius: 18px;
+    padding: 1.4rem;
+}
+
+.resultado-split {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 1.25rem;
+    align-items: center;
+    margin-bottom: 1.35rem;
+}
+
+@media (max-width: 480px) {
+    .resultado-split {
+        grid-template-columns: 1fr;
+        justify-items: center;
+        text-align: center;
+    }
+}
+
+.resultado-thumb-card {
+    width: 130px;
+    height: 130px;
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-beige);
+    border-radius: 18px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 8px;
+    overflow: hidden;
+}
+
+.resultado-thumb-card img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.resultado-thumb-card .placeholder-icon {
+    color: var(--border-dashed);
+}
+
+.resultado-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.resultado-label {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 0.3rem;
+}
+
+.resultado-numero-grande {
+    font-size: clamp(3.5rem, 7vw, 4.8rem);
+    font-weight: 800;
+    line-height: 1;
+    color: var(--vinotinto-main);
+    letter-spacing: -0.04em;
+}
+
+/* Barra de Nivel de Confianza */
+.confianza-section {
+    border-top: 1px solid var(--border-beige);
+    padding-top: 1rem;
+}
+
+.confianza-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.55rem;
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.confianza-porcentaje {
+    font-family: 'Plus Jakarta Sans', monospace, sans-serif;
+    color: var(--text-primary);
+    font-size: 0.95rem;
+}
+
+.confianza-track {
+    width: 100%;
+    height: 12px;
+    background-color: var(--border-beige);
+    border-radius: var(--radius-pill);
+    overflow: hidden;
+}
+
+.confianza-fill {
+    height: 100%;
+    width: 0%;
+    background-color: var(--vinotinto-main);
+    border-radius: var(--radius-pill);
+    transition: width 0.75s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* Historial Reciente */
+.historial-card {
+    background-color: var(--bg-card);
+    border: 1px solid var(--border-beige);
+    border-radius: var(--radius-card);
+    padding: 1.5rem 1.75rem;
+    box-shadow: var(--shadow-card);
+}
+
+.historial-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.15rem;
+}
+
+.historial-title-group {
+    display: flex;
+    align-items: center;
+    gap: 0.55rem;
+    color: var(--vinotinto-main);
+}
+
+.historial-title-group h3 {
+    font-size: 1.08rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.btn-clear-history {
+    background: transparent;
+    border: none;
+    color: var(--vinotinto-main);
+    font-size: 0.82rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    padding: 0.25rem 0.45rem;
+    border-radius: 6px;
+    transition: background-color 0.2s ease;
+}
+
+.btn-clear-history:hover {
+    background-color: var(--vinotinto-soft);
+}
+
+.historial-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.historial-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.65rem 0.85rem;
+    border-radius: 14px;
+    background-color: var(--bg-surface-subtle);
+    border: 1px solid var(--border-beige);
+    transition: transform 0.2s ease;
+}
+
+.historial-item:hover {
+    transform: translateX(3px);
+}
+
+.historial-left {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+}
+
+.historial-thumb-box {
+    width: 44px;
+    height: 44px;
+    border-radius: 10px;
+    background-color: #FFFFFF;
+    border: 1px solid var(--border-beige);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    padding: 4px;
+}
+
+.historial-thumb-box img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.historial-pred-text {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.historial-pred-text strong {
+    color: var(--vinotinto-main);
+    font-size: 1.05rem;
+}
+
+.historial-confianza {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: var(--text-secondary);
+}
+
+.historial-empty {
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.88rem;
+    padding: 1rem 0;
+}
+
+/* Alertas de error */
+.alerta-error {
+    margin-top: 1rem;
+    padding: 0.85rem 1rem;
+    border-radius: 12px;
+    background-color: #FDF2F2;
+    border: 1px solid #F8B4B4;
+    color: #9B1C1C;
+    font-size: 0.88rem;
+    font-weight: 600;
+}
